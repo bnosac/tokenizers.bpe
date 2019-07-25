@@ -1,0 +1,18 @@
+Package: tokenizers.bpe
+Type: Package
+Title: Byte Pair Encoding Tokenisation
+Version: 0.1.0
+Authors@R: c(person('Jan', 'Wijffels', role = c('aut', 'cre', 'cph'), email = 'jwijffels@bnosac.be', comment = "R wrapper"), 
+    person('BNOSAC', role = 'cph', comment = "R wrapper"), 
+    person('VK.com', role = 'cph'), 
+    person('Malte Skarupke', role = c('ctb', 'cph'), comment = "File src/youtokentome/cpp/third_party (Boost Software License, Version 1.0)"), 
+    person('Ivan Belonogov', role = c('ctb', 'cph'), email = 'xbelonogov@gmail.com', comment = "Files at src/youtokentome, except file src/youtokentome/cpp/third_party"))
+Maintainer: Jan Wijffels <jwijffels@bnosac.be>
+Description: Unsupervised text tokenizer focused on computational efficiency. Wraps the 'YouTokenToMe' library <https://github.com/VKCOM/YouTokenToMe> which is an implementation of fast Byte Pair Encoding (BPE) <https://www.aclweb.org/anthology/P16-1162>.
+URL: https://github.com/bnosac/tokenizers.bpe
+License: MPL-2.0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Imports: Rcpp (>= 0.11.5)
+LinkingTo: Rcpp

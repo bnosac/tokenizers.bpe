@@ -2,53 +2,60 @@
 
 This repository contains an R package which is an Rcpp wrapper around the YouTokenToMe C++ library
 
-- YouTokenToMe is an unsupervised text tokenizer focused on computational efficiency (https://github.com/VKCOM/YouTokenToMe)
-- It currently implements fast Byte Pair Encoding (BPE) [[Sennrich et al.](https://www.aclweb.org/anthology/P16-1162)].
-
-
+- YouTokenToMe is an unsupervised text tokenizer focused on computational efficiency
+- It currently implements fast Byte Pair Encoding (BPE) [[Sennrich et al.](https://www.aclweb.org/anthology/P16-1162)]
+- YouTokenToMe is available at https://github.com/VKCOM/YouTokenToMe
 
 ## Features
 
-Currently the R package allows you to 
+The R package allows you to 
 
 - build a Byte Pair Encoding (BPE) model
 - apply the model to encode text
 - apply the model to decode ids back to text
 
+Note that YouTokenToMe only works on 64 bit.
+
 ## Installation
 
+<!--
+- For regular users, install the package from your local CRAN mirror `install.packages("tokenizers.bpe")`
+-->
+- For installing the development version of this package: `remotes::install_github("bnosac/tokenizers.bpe", INSTALL_opts = "--no-multiarch")`
+
+Look to the vignette and the documentation of the functions
+
 ```
-install.packages("udpipe")
-remotes::install_github("bnosac/tokenizers.bpe")
+help(package = "tokenizers.bpe")
 ```
 
 ## Example
 
-- As an example, let's take some training data from the udpipe package
+- As an example, let's take some training data containing questions asked in Belgian Parliament in 2017 and focus on French text only.
 
 
-```r
+```{r}
 library(tokenizers.bpe)
-library(udpipe)
-data(brussels_reviews, package = "udpipe")
-writeLines(text = brussels_reviews$feedback, con = "traindata.txt")
+data(belgium_parliament, package = "tokenizers.bpe")
+x <- subset(belgium_parliament, language == "french")
+writeLines(text = x$text, con = "traindata.txt")
 ```
 
 - Train a model on text data and inspect the vocabulary
 
 
-```r
+```{r}
 model <- bpe(file = "traindata.txt", coverage = 0.999, vocab_size = 5000)
 model
 ```
 
 ```
-Byte Pair Encoding model training with YouTokenToMe
+Byte Pair Encoding model trained with YouTokenToMe
   size of the vocabulary: 5000
-  model stored at: C:/Users/Jan/Dropbox/Work/RForgeBNOSAC/jwijffels/tokenizers.bpe/youtokentome.bpe
+  model stored at: C:/Users/Jan/Dropbox/Work/RForgeBNOSAC/BNOSAC/tokenizers.bpe/youtokentome.bpe
 ```
 
-```r
+```{r}
 str(model$vocabulary)
 ```
 
@@ -61,49 +68,47 @@ str(model$vocabulary)
 - Use the model to encode text
 
 
-```r
-text <- c("L'appartement est grand & extremement bien situe en plein centre",
-          "I visited Brussels as the Belgium beer is great, particularly Westmalle and Orval")
+```{r}
+text <- c("L'appartement est grand & vraiment bien situe en plein centre",
+          "Proportion de femmes dans les situations de famille monoparentale.")
 bpe_encode(model, x = text, type = "subwords")
 ```
 
 ```
 [[1]]
- [1] "▁L'appartement" "▁est"           "▁grand"         "▁"              "&"              "▁extreme"       "ment"          
- [8] "▁bien"          "▁situe"         "▁en"            "▁plein"         "▁centre"       
+ [1] "▁L'"     "app"     "ar"      "tement"  "▁est"    "▁grand"  "▁"       "&"       "▁vra"    "iment"   "▁bien"   "▁situe"  "▁en"     "▁plein"  "▁centre"
 
 [[2]]
- [1] "▁I"       "▁visite"  "d"        "▁Brussel" "s"        "▁as"      "▁the"     "▁Belg"    "i"        "um"       "▁b"      
-[12] "eer"      "▁is"      "▁g"       "re"       "at"       ","        "▁parti"   "cul"      "ar"       "l"        "y"       
-[23] "▁W"       "est"      "m"        "al"       "le"       "▁and"     "▁O"       "r"        "val"  
+ [1] "▁Pr"         "op"          "or"          "tion"        "▁de"         "▁femmes"     "▁dans"       "▁les"        "▁situations" "▁de"         "▁famille"   
+[12] "▁mon"        "op"          "ar"          "ent"         "ale."
 ```
 
-```r
+```{r}
 bpe_encode(model, x = text, type = "ids")
 ```
 
 ```
 [[1]]
- [1]  478  139  735    4    1 4539  100  169  381   93 1291  586
+ [1]  443 1832   98  897  171 1225    4    1 4186 3199  747 4548  114 3558 2196
 
 [[2]]
- [1]  317 2221   15  310   11 1126 2029 1621   12 1334   90  268  191  106   89  161   24 1999 1613   74   13   26  283  265   17  117   95 1054  407   10 3448
+ [1] 2290  199  111   89   78 1711  162  107 2968   78 1877  989  199   98   85 2090
 ```
 
 - Use the model to decode byte pair encodings back to text
 
 
-```r
+```{r}
 x <- bpe_encode(model, x = text, type = "ids")
 bpe_decode(model, x)
 ```
 
 ```
 [[1]]
-[1] "L'appartement est grand <UNK> extremement bien situe en plein centre"
+[1] "L'appartement est grand <UNK> vraiment bien situe en plein centre"
 
 [[2]]
-[1] "I visited Brussels as the Belgium beer is great, particularly Westmalle and Orval"
+[1] "Proportion de femmes dans les situations de famille monoparentale."
 ```
 
 ## Support in text mining

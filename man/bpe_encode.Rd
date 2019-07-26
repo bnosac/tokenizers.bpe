@@ -23,3 +23,23 @@ bpe_encode(model, x, type = c("subwords", "ids"), bos = FALSE,
 \description{
 Tokenise text alongside a Byte Pair Encoding model
 }
+\examples{
+data(belgium_parliament, package = "tokenizers.bpe")
+x <- subset(belgium_parliament, language == "french")
+x <- head(x, 1000)
+model <- bpe(x$text, coverage = 0.999, vocab_size = 5000, threads = 1)
+model
+str(model$vocabulary)
+
+text <- c("L'appartement est grand & vraiment bien situe en plein centre",
+          "Proportion de femmes dans les situations de famille monoparentale.")
+bpe_encode(model, x = text, type = "subwords")
+bpe_encode(model, x = text, type = "ids")
+
+encoded <- bpe_encode(model, x = text, type = "ids")
+decoded <- bpe_decode(model, encoded)
+decoded
+
+## Remove the model file (Clean up for CRAN)
+file.remove(model$model_path)
+}

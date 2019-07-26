@@ -24,3 +24,19 @@ an object of class \code{youtokentome} which is a list with elements
 \description{
 Load a Byte Pair Encoding model trained with \code{\link{bpe}}
 }
+\examples{
+## Reload a model
+path  <- system.file(package = "tokenizers.bpe", "extdata", "youtokentome.bpe")
+model <- bpe_load_model(path)
+
+## Build a model and load it again
+
+data(belgium_parliament, package = "tokenizers.bpe")
+x <- subset(belgium_parliament, language == "french")
+x <- head(x, 1000)
+model <- bpe(x$text, coverage = 0.999, vocab_size = 5000, threads = 1)
+model <- bpe_load_model(model$model_path, threads = 1)
+
+## Remove the model file (Clean up for CRAN)
+file.remove(model$model_path)
+}

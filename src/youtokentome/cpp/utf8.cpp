@@ -1,3 +1,4 @@
+#include <Rcpp.h>
 #include "utf8.h"
 #include <cassert>
 #include <iostream>
@@ -122,7 +123,7 @@ vector<uint32_t> decode_utf8(const char* begin, const char* end) {
     }
   }
   if (invalid_input) {
-    std::cerr << "WARNING Input contains invalid unicode characters."
+    Rcpp::Rcerr << "WARNING Input contains invalid unicode characters."
               << std::endl;
   }
   return decoded_text;

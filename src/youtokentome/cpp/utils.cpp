@@ -1,3 +1,4 @@
+#include <Rcpp.h>
 #include "utils.h"
 #include <cassert>
 #include <fstream>
@@ -53,7 +54,7 @@ BPE_Rule::BPE_Rule(uint32_t x, uint32_t y, uint32_t z) : x(x), y(y), z(z) {}
 void BPEState::dump(const string &file_name) {
   std::ofstream fout(file_name, std::ios::out);
   if (fout.fail()) {
-    std::cerr << "Can't open file: " << file_name << std::endl;
+    Rcpp::Rcerr << "Can't open file: " << file_name << std::endl;
     assert(false);
   }
   fout << char2id.size() << " " << rules.size() << std::endl;
@@ -73,9 +74,9 @@ void BPEState::load(const string &file_name) {
   rules.clear();
   std::ifstream fin(file_name, std::ios::in);
   if (fin.fail()) {
-    std::cerr << "Error. Can not open file with model: " << file_name
+    Rcpp::Rcerr << "Error. Can not open file with model: " << file_name
               << std::endl;
-    exit(EXIT_FAILURE);
+    Rcpp::stop("Exiting");
   }
   int n, m;
   fin >> n >> m;

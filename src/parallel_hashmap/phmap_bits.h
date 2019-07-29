@@ -18,7 +18,7 @@
 //
 // Includes work from abseil-cpp (https://github.com/abseil/abseil-cpp)
 // with modifications.
-// 
+//
 // Copyright 2018 The Abseil Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -333,11 +333,11 @@ PHMAP_BASE_INTERNAL_FORCEINLINE int CountTrailingZerosNonZero32(uint32_t n) {
 
 #if defined(__GNUC__)
     #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wpedantic"
+    //#pragma GCC diagnostic ignored "-Wpedantic"
 #endif
 
 #ifdef PHMAP_HAVE_INTRINSIC_INT128
-    inline uint64_t umul128(uint64_t a, uint64_t b, uint64_t* high) 
+    inline uint64_t umul128(uint64_t a, uint64_t b, uint64_t* high)
     {
         auto result = static_cast<unsigned __int128>(a) * static_cast<unsigned __int128>(b);
         *high = static_cast<uint64_t>(result >> 64);
@@ -347,7 +347,7 @@ PHMAP_BASE_INTERNAL_FORCEINLINE int CountTrailingZerosNonZero32(uint32_t n) {
 #elif (defined(_MSC_VER))
     #if defined(_M_X64)
         #pragma intrinsic(_umul128)
-        inline uint64_t umul128(uint64_t a, uint64_t b, uint64_t* high) 
+        inline uint64_t umul128(uint64_t a, uint64_t b, uint64_t* high)
         {
             return _umul128(a, b, high);
         }

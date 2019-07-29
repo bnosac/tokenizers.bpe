@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "third_party/flat_hash_map.h"
+#include <parallel_hashmap/phmap.h>
 
 namespace vkcom {
 const uint32_t SPACE_TOKEN = 9601;
@@ -54,7 +54,7 @@ struct BpeConfig {
 };
 
 struct BPEState {
-  ska::flat_hash_map<uint32_t, uint32_t> char2id;
+  phmap::flat_hash_map<uint32_t, uint32_t> char2id;
   std::vector<BPE_Rule> rules;
   SpecialTokens special_tokens;
 

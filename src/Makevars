@@ -1,6 +1,6 @@
 CXX_STD = CXX11
 PKG_LIBS = -pthread
-PKG_CPPFLAGS = -pthread -DSTRICT_R_HEADERS -I./youtokentome/cpp -I./youtokentome/cpp/third_party
+PKG_CPPFLAGS = -pthread -DSTRICT_R_HEADERS -I./youtokentome/cpp -I.
 
 SOURCES = youtokentome/cpp/utils.cpp \
           youtokentome/cpp/bpe.cpp   \

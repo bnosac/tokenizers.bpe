@@ -3,7 +3,9 @@
 #include <map>
 #include <string>
 #include <unordered_map>
-#include "third_party/flat_hash_map.h"
+#include <parallel_hashmap/phmap.h>
+
+
 
 #include "utils.h"
 
@@ -24,10 +26,10 @@ void print_vocab(const std::string& model_path, bool verbose);
 class BaseEncoder {
  public:
   BPEState bpe_state;
-  ska::flat_hash_map<uint32_t, uint32_t> id2char;
-  ska::flat_hash_map<uint32_t, std::vector<uint32_t>> recipe;
-  ska::flat_hash_map<std::string, uint32_t> reversed_recipe;
-  ska::flat_hash_map<uint64_t, int> rule2id;
+  phmap::flat_hash_map<uint32_t, uint32_t> id2char;
+  phmap::flat_hash_map<uint32_t, std::vector<uint32_t>> recipe;
+  phmap::flat_hash_map<std::string, uint32_t> reversed_recipe;
+  phmap::flat_hash_map<uint64_t, int> rule2id;
   int n_threads;
 
   explicit BaseEncoder(BPEState bpe_state, int _n_threads);

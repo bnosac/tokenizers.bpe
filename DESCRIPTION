@@ -5,8 +5,9 @@ Version: 0.1.0
 Authors@R: c(person('Jan', 'Wijffels', role = c('aut', 'cre', 'cph'), email = 'jwijffels@bnosac.be', comment = "R wrapper"), 
     person('BNOSAC', role = 'cph', comment = "R wrapper"), 
     person('VK.com', role = 'cph'), 
-    person('Malte Skarupke', role = c('ctb', 'cph'), comment = "File src/youtokentome/cpp/third_party (Boost Software License, Version 1.0)"), 
-    person('Ivan Belonogov', role = c('ctb', 'cph'), email = 'xbelonogov@gmail.com', comment = "Files at src/youtokentome, except file src/youtokentome/cpp/third_party"))
+    person('Gregory Popovitch', role = c('ctb', 'cph'), comment = "Files at src/parallel_hashmap (Apache License, Version 2.0"), 
+    person('The Abseil Authors', role = c('ctb', 'cph'), comment = "Files at src/parallel_hashmap (Apache License, Version 2.0"),
+    person('Ivan Belonogov', role = c('ctb', 'cph'), email = 'xbelonogov@gmail.com', comment = "Files at src/youtokentome (MIT License)"))
 Maintainer: Jan Wijffels <jwijffels@bnosac.be>
 Description: Unsupervised text tokenizer focused on computational efficiency. Wraps the 'YouTokenToMe' library <https://github.com/VKCOM/YouTokenToMe> which is an implementation of fast Byte Pair Encoding (BPE) <https://www.aclweb.org/anthology/P16-1162>.
 URL: https://github.com/bnosac/tokenizers.bpe

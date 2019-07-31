@@ -26,7 +26,6 @@ Tokenise text alongside a Byte Pair Encoding model
 \examples{
 data(belgium_parliament, package = "tokenizers.bpe")
 x <- subset(belgium_parliament, language == "french")
-x <- head(x, 1000)
 model <- bpe(x$text, coverage = 0.999, vocab_size = 5000, threads = 1)
 model
 str(model$vocabulary)

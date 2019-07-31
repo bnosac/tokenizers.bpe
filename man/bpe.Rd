@@ -4,9 +4,9 @@
 \alias{bpe}
 \title{Construct a Byte Pair Encoding model}
 \usage{
-bpe(x, coverage = 0.9999, vocab_size = 5000, threads = -1L,
-  pad_id = 0L, unk_id = 1L, bos_id = 2L, eos_id = 3L,
-  model_path = file.path(getwd(), "youtokentome.bpe"))
+bpe(x, coverage = 0.9999, vocab_size = 5000, threads = -1L, pad_id = 0L,
+  unk_id = 1L, bos_id = 2L, eos_id = 3L, model_path = file.path(getwd(),
+  "youtokentome.bpe"))
 }
 \arguments{
 \item{x}{path to the text file containing training data or a character vector of text with training data}
@@ -36,7 +36,6 @@ Construct a Byte Pair Encoding model on text
 \examples{
 data(belgium_parliament, package = "tokenizers.bpe")
 x <- subset(belgium_parliament, language == "french")
-x <- head(x, 1000)
 model <- bpe(x$text, coverage = 0.999, vocab_size = 5000, threads = 1)
 model
 str(model$vocabulary)

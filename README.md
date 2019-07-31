@@ -45,7 +45,7 @@ writeLines(text = x$text, con = "traindata.txt")
 
 
 ```{r}
-model <- bpe(file = "traindata.txt", coverage = 0.999, vocab_size = 5000)
+model <- bpe("traindata.txt", coverage = 0.999, vocab_size = 5000)
 model
 ```
 

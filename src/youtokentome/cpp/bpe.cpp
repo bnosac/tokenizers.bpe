@@ -260,8 +260,8 @@ struct PriorityQueue {
   size_t big_event_bound;
 
   explicit PriorityQueue(size_t dataset_size)
-    : big_queue(static_cast<size_t>(sqrt(dataset_size))),
-      big_event_bound(static_cast<size_t>(sqrt(dataset_size))) {}
+    : big_queue(static_cast<size_t>(sqrt(1.0 * dataset_size))),
+      big_event_bound(static_cast<size_t>(sqrt(1.0 * dataset_size))) {}
 
   void push(const MergeCandidate &event) {
     if (event.count == 0) {

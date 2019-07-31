@@ -12,7 +12,7 @@ bpe_encode(model, x, type = c("subwords", "ids"), bos = FALSE,
 
 \item{x}{a character vector of text to tokenise}
 
-\item{type}{a character vector of text to tokenise}
+\item{type}{a character string, either 'subwords' or 'ids' to get the subwords or the corresponding ids of these subwords as defined in the vocabulary of the model. Defaults to 'subwords'.}
 
 \item{bos}{logical if set to TRUE then token 'beginning of sentence' will be added}
 

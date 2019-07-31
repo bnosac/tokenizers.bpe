@@ -103,7 +103,7 @@ print.youtokentome <- function(x, ...){
 #' @description Tokenise text alongside a Byte Pair Encoding model
 #' @param model an object of class \code{youtokentome} as returned by \code{\link{bpe_load_model}}
 #' @param x a character vector of text to tokenise
-#' @param type a character vector of text to tokenise
+#' @param type a character string, either 'subwords' or 'ids' to get the subwords or the corresponding ids of these subwords as defined in the vocabulary of the model. Defaults to 'subwords'.
 #' @param bos logical if set to TRUE then token 'beginning of sentence' will be added
 #' @param eos logical if set to TRUE then token 'end of sentence' will be added
 #' @param reverse logical if set to TRUE the output sequence of tokens will be reversed

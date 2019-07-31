@@ -104,13 +104,13 @@ uint64_t int2comb(uint32_t a, uint32_t b) {
 }
 
 struct MergeCandidate {
-  size_t count{0};
+  uint64_t count{0};
   uint32_t left_token{0};
   uint32_t right_token{0};
 
   MergeCandidate() = default;
 
-  MergeCandidate(size_t count, uint32_t left_token, uint32_t right_token)
+  MergeCandidate(uint64_t count, uint32_t left_token, uint32_t right_token)
     : count(count), left_token(left_token), right_token(right_token) {}
 
   bool operator<(const MergeCandidate &other) const {

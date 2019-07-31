@@ -21,7 +21,7 @@ Note that YouTokenToMe only works on 64 bit.
 <!--
 - For regular users, install the package from your local CRAN mirror `install.packages("tokenizers.bpe")`
 -->
-- For installing the development version of this package: `remotes::install_github("bnosac/tokenizers.bpe", INSTALL_opts = "--no-multiarch")`
+- For installing the development version of this package: `remotes::install_github("bnosac/tokenizers.bpe@youtokentome", INSTALL_opts = "--no-multiarch")`
 
 Look to the vignette and the documentation of the functions
 

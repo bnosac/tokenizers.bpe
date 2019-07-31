@@ -5,6 +5,7 @@ This repository contains an R package which is an Rcpp wrapper around the YouTok
 - YouTokenToMe is an unsupervised text tokenizer focused on computational efficiency
 - It currently implements fast Byte Pair Encoding (BPE) [[Sennrich et al.](https://www.aclweb.org/anthology/P16-1162)]
 - YouTokenToMe is available at https://github.com/VKCOM/YouTokenToMe
+- Note that the flat_hash_map used in YouTokenToMe was replaced by [parallel-hashmap](https://github.com/greg7mdp/parallel-hashmap)
 
 ## Features
 
@@ -14,16 +15,13 @@ The R package allows you to
 - apply the model to encode text
 - apply the model to decode ids back to text
 
-Note that YouTokenToMe only works on 64 bit.
 
 ## Installation
 
-<!--
 - For regular users, install the package from your local CRAN mirror `install.packages("tokenizers.bpe")`
--->
-- For installing the development version of this package: `remotes::install_github("bnosac/tokenizers.bpe", INSTALL_opts = "--no-multiarch")`
+- For installing the development version of this package: `remotes::install_github("bnosac/tokenizers.bpe")`
 
-Look to the vignette and the documentation of the functions
+Look to the documentation of the functions
 
 ```
 help(package = "tokenizers.bpe")
@@ -45,7 +43,7 @@ writeLines(text = x$text, con = "traindata.txt")
 
 
 ```{r}
-model <- bpe(file = "traindata.txt", coverage = 0.999, vocab_size = 5000)
+model <- bpe("traindata.txt", coverage = 0.999, vocab_size = 5000)
 model
 ```
 
@@ -76,11 +74,10 @@ bpe_encode(model, x = text, type = "subwords")
 
 ```
 [[1]]
- [1] "▁L'"     "app"     "ar"      "tement"  "▁est"    "▁grand"  "▁"       "&"       "▁vra"    "iment"   "▁bien"   "▁situe"  "▁en"     "▁plein"  "▁centre"
+ [1] "▁L'"     "app"     "ar"      "tement"  "▁est"    "▁grand"  "▁"       "&"       "▁v"      "r"       "ai"      "ment"    "▁bien"   "▁situe"  "▁en"     "▁plein"  "▁centre"
 
 [[2]]
- [1] "▁Pr"         "op"          "or"          "tion"        "▁de"         "▁femmes"     "▁dans"       "▁les"        "▁situations" "▁de"         "▁famille"   
-[12] "▁mon"        "op"          "ar"          "ent"         "ale."
+ [1] "▁Pro"        "por"         "tion"        "▁de"         "▁femmes"     "▁dans"       "▁les"        "▁situations" "▁de"         "▁famille"    "▁mon"        "op"          "ar"          "ent"         "ale." 
 ```
 
 ```{r}
@@ -89,10 +86,10 @@ bpe_encode(model, x = text, type = "ids")
 
 ```
 [[1]]
- [1]  443 1832   98  897  171 1225    4    1 4186 3199  747 4548  114 3558 2196
+ [1]  421  327   98  554  178 1521    4    1  117   11  101   99  679 4599  113 3702 2126
 
 [[2]]
- [1] 2290  199  111   89   78 1711  162  107 2968   78 1877  989  199   98   85 2090
+ [1] 1529 4878   92   76 2321  162  108 4099   76 3218  791  312   98   87 2546
 ```
 
 - Use the model to decode byte pair encodings back to text

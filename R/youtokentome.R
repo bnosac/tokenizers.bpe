@@ -16,7 +16,6 @@
 #' @examples
 #' data(belgium_parliament, package = "tokenizers.bpe")
 #' x <- subset(belgium_parliament, language == "french")
-#' x <- head(x, 1000)
 #' model <- bpe(x$text, coverage = 0.999, vocab_size = 5000, threads = 1)
 #' model
 #' str(model$vocabulary)
@@ -78,7 +77,6 @@ bpe <- function(x,
 #'
 #' data(belgium_parliament, package = "tokenizers.bpe")
 #' x <- subset(belgium_parliament, language == "french")
-#' x <- head(x, 1000)
 #' model <- bpe(x$text, coverage = 0.999, vocab_size = 5000, threads = 1)
 #' model <- bpe_load_model(model$model_path, threads = 1)
 #'
@@ -113,7 +111,6 @@ print.youtokentome <- function(x, ...){
 #' @examples
 #' data(belgium_parliament, package = "tokenizers.bpe")
 #' x <- subset(belgium_parliament, language == "french")
-#' x <- head(x, 1000)
 #' model <- bpe(x$text, coverage = 0.999, vocab_size = 5000, threads = 1)
 #' model
 #' str(model$vocabulary)
@@ -154,7 +151,6 @@ bpe_encode <- function(model, x, type = c("subwords", "ids"), bos = FALSE, eos =
 #' @examples
 #' data(belgium_parliament, package = "tokenizers.bpe")
 #' x <- subset(belgium_parliament, language == "french")
-#' x <- head(x, 1000)
 #' model <- bpe(x$text, coverage = 0.999, vocab_size = 5000, threads = 1)
 #' model
 #' str(model$vocabulary)

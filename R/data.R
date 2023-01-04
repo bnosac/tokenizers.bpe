@@ -11,7 +11,7 @@
 #' }
 #' @name belgium_parliament
 #' @docType data
-#' @source \url{http://data.dekamer.be}, data is provided by \url{http://www.dekamer.be} in the public domain (CC0).
+#' @source \url{http://data.dekamer.be}, data is provided by http://www.dekamer.be in the public domain (CC0).
 #' @examples
 #' data(belgium_parliament)
 #' str(belgium_parliament)

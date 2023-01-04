@@ -3,7 +3,7 @@
 This repository contains an R package which is an Rcpp wrapper around the YouTokenToMe C++ library
 
 - YouTokenToMe is an unsupervised text tokenizer focused on computational efficiency
-- It currently implements fast Byte Pair Encoding (BPE) [[Sennrich et al.](https://www.aclweb.org/anthology/P16-1162)]
+- It currently implements fast Byte Pair Encoding (BPE) [[Sennrich et al.](https://aclanthology.org/P16-1162/)]
 - YouTokenToMe is available at https://github.com/VKCOM/YouTokenToMe
 - Note that the flat_hash_map used in YouTokenToMe was replaced by [parallel-hashmap](https://github.com/greg7mdp/parallel-hashmap)
 

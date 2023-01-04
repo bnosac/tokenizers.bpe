@@ -4,8 +4,14 @@
 \alias{bpe_encode}
 \title{Tokenise text alongside a Byte Pair Encoding model}
 \usage{
-bpe_encode(model, x, type = c("subwords", "ids"), bos = FALSE,
-  eos = FALSE, reverse = FALSE)
+bpe_encode(
+  model,
+  x,
+  type = c("subwords", "ids"),
+  bos = FALSE,
+  eos = FALSE,
+  reverse = FALSE
+)
 }
 \arguments{
 \item{model}{an object of class \code{youtokentome} as returned by \code{\link{bpe_load_model}}}

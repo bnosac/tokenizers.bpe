@@ -1710,7 +1710,7 @@ vector<vector<int>> BaseEncoder::encode_as_ids(const vector<string> &sentences,
   auto res = encode_parallel(sentences, encoding_config, ID);
   vector<vector<int>> ret(res.size());
   for (size_t i = 0; i < res.size(); i++) {
-    ret[i] = move(res[i].ids);
+    ret[i] = std::move(res[i].ids);
   }
   return ret;
 }
@@ -1722,7 +1722,7 @@ vector<vector<string>> BaseEncoder::encode_as_subwords(
   auto res = encode_parallel(sentences, encoding_config, SUBWORD);
   vector<vector<string>> ret(res.size());
   for (size_t i = 0; i < res.size(); i++) {
-    ret[i] = move(res[i].pieces);
+    ret[i] = std::move(res[i].pieces);
   }
   return ret;
 }

@@ -1,3 +1,7 @@
+## CHANGES IN tokenizers.bpe VERSION 0.1.2
+
+- Drop C++11 specification in Makevars
+
 ## CHANGES IN tokenizers.bpe VERSION 0.1.1
 
 - replace move with std::move to fix R CMD check warning on recent versions of clang compilers

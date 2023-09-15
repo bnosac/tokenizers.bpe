@@ -1,7 +1,7 @@
 Package: tokenizers.bpe
 Type: Package
 Title: Byte Pair Encoding Text Tokenization
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(person('Jan', 'Wijffels', role = c('aut', 'cre', 'cph'), email = 'jwijffels@bnosac.be', comment = "R wrapper"), 
     person('BNOSAC', role = 'cph', comment = "R wrapper"), 
     person('VK.com', role = 'cph'), 

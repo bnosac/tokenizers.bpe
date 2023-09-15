@@ -1,3 +1,7 @@
+## CHANGES IN tokenizers.bpe VERSION 0.1.3
+
+- Update parallel-hashmap to 1.3.11 which fixes C++17 deprecations about rebind, construct, destroy
+
 ## CHANGES IN tokenizers.bpe VERSION 0.1.2
 
 - Drop C++11 specification in Makevars

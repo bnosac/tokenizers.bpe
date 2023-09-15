@@ -1205,7 +1205,7 @@ namespace priv {
 
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Warray-bounds"
+//#pragma GCC diagnostic ignored "-Warray-bounds"
 #endif
         // Getters/setter for the child at position i in the node.
         btree_node *child(size_type i) const { return GetField<3>()[i]; }

@@ -381,7 +381,7 @@ inline bool IsEmptyOrDeleted(ctrl_t c) { return c < kSentinel; }
 inline __m128i _mm_cmpgt_epi8_fixed(__m128i a, __m128i b) {
 #if defined(__GNUC__) && !defined(__clang__)
   #pragma GCC diagnostic push
-  #pragma GCC diagnostic ignored "-Woverflow"
+  //#pragma GCC diagnostic ignored "-Woverflow"
 
   if (std::is_unsigned<char>::value) {
     const __m128i mask = _mm_set1_epi8(static_cast<char>(0x80));

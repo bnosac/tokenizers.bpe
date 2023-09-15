@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // youtokentome_train
 std::string youtokentome_train(const std::string& input_path, const std::string& model_path, double coverage, int threads, int vocab_size, int pad_id, int unk_id, int bos_id, int eos_id);
 RcppExport SEXP _tokenizers_bpe_youtokentome_train(SEXP input_pathSEXP, SEXP model_pathSEXP, SEXP coverageSEXP, SEXP threadsSEXP, SEXP vocab_sizeSEXP, SEXP pad_idSEXP, SEXP unk_idSEXP, SEXP bos_idSEXP, SEXP eos_idSEXP) {

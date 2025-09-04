@@ -27,8 +27,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ------------------------------------------------------------------------------------------------------
-- parallel_hashmap (Files at src/parallel_hashmap: Apache 2 License
-  commit https://github.com/greg7mdp/parallel-hashmap/commit/68e4986a71e4bf3c9dea67491c2c757423157b26
+- parallel_hashmap v2.0.0 (Files at src/parallel_hashmap: Apache 2 License
+  commit https://github.com/greg7mdp/parallel-hashmap/commit/2ec799017610ef831f4dc29c21fb3cce7e4a19b9
 ------------------------------------------------------------------------------------------------------
 
 Copyright (c) 2019, Gregory Popovitch - greg7mdp@gmail.com

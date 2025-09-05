@@ -1,3 +1,7 @@
+## CHANGES IN tokenizers.bpe VERSION 0.1.4
+
+- Update parallel-hashmap to commit 88123934b46b77c3b6d80167382734cbff6eff74 to fix clang 21.1.0 compiler warnings 'pointer' and 'const_pointer' is deprecated
+
 ## CHANGES IN tokenizers.bpe VERSION 0.1.3
 
 - Update parallel-hashmap to 1.3.11 which fixes C++17 deprecations about rebind, construct, destroy

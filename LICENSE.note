@@ -28,7 +28,7 @@ SOFTWARE.
 
 ------------------------------------------------------------------------------------------------------
 - parallel_hashmap v2.0.0 (Files at src/parallel_hashmap: Apache 2 License
-  commit https://github.com/greg7mdp/parallel-hashmap/commit/2ec799017610ef831f4dc29c21fb3cce7e4a19b9
+  commit https://github.com/greg7mdp/parallel-hashmap/commit/88123934b46b77c3b6d80167382734cbff6eff74
 ------------------------------------------------------------------------------------------------------
 
 Copyright (c) 2019, Gregory Popovitch - greg7mdp@gmail.com

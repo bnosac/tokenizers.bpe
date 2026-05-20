@@ -1,3 +1,10 @@
+## CHANGES IN tokenizers.bpe VERSION 0.1.5
+
+- phmap_base.h: replace 
+    using GetIsAlwaysEqual = typename T::is_always_equal;
+    with  GetIsAlwaysEqual = typename std::allocator_traits<T>::is_always_equal;
+  to avoid warning: 'is_always_equal' is deprecated on Debian clang version 21.1.8
+
 ## CHANGES IN tokenizers.bpe VERSION 0.1.4
 
 - Update parallel-hashmap to commit 88123934b46b77c3b6d80167382734cbff6eff74 to fix clang 21.1.0 compiler warnings 'pointer' and 'const_pointer' is deprecated

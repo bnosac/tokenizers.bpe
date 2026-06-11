@@ -1,3 +1,7 @@
+## CHANGES IN tokenizers.bpe VERSION 0.1.6
+
+- Update parallel-hashmap to commit 48f4c5fb0519e41233f000340039a1a9dd00a1f0 as it fixes the same as what tokenizers.bpe 0.1.5 fixed but now upstream
+
 ## CHANGES IN tokenizers.bpe VERSION 0.1.5
 
 - phmap_base.h: replace 

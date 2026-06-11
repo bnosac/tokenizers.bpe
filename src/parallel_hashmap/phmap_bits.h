@@ -18,7 +18,7 @@
 //
 // Includes work from abseil-cpp (https://github.com/abseil/abseil-cpp)
 // with modifications.
-//
+// 
 // Copyright 2018 The Abseil Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,7 +51,7 @@
 #include "phmap_config.h"
 
 #ifdef _MSC_VER
-    #pragma warning(push)
+    #pragma warning(push)  
     #pragma warning(disable : 4514) // unreferenced inline function has been removed
 #endif
 
@@ -242,7 +242,7 @@ namespace phmap {
 
 #if defined(__GNUC__)
     #pragma GCC diagnostic push
-    //#pragma GCC diagnostic ignored "-Wpedantic"
+    #pragma GCC diagnostic ignored "-Wpedantic"
 #endif
 
 #ifdef PHMAP_HAVE_INTRINSIC_INT128
@@ -659,7 +659,7 @@ inline void Store64(void *p, uint64_t v) {
 }  // namespace phmap
 
 #ifdef _MSC_VER
-     #pragma warning(pop)
+     #pragma warning(pop)  
 #endif
 
 #endif // phmap_bits_h_guard_

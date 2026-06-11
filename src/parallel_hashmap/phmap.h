@@ -18,7 +18,7 @@
 //
 // Includes work from abseil-cpp (https://github.com/abseil/abseil-cpp)
 // with modifications.
-// 
+//
 // Copyright 2018 The Abseil Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -87,7 +87,7 @@
 
 
 #ifdef _MSC_VER
-    #pragma warning(push)  
+    #pragma warning(push)
 
     #pragma warning(disable : 4127) // conditional expression is constant
     #pragma warning(disable : 4324) // structure was padded due to alignment specifier
@@ -142,7 +142,7 @@ void SwapAlloc(AllocType& /*lhs*/, AllocType& /*rhs*/,
 
 // --------------------------------------------------------------------------
 template <size_t Width>
-class probe_seq 
+class probe_seq
 {
 public:
     probe_seq(size_t hashval, size_t mask) {
@@ -169,7 +169,7 @@ private:
 
 // --------------------------------------------------------------------------
 template <class ContainerKey, class Hash, class Eq>
-struct RequireUsableKey 
+struct RequireUsableKey
 {
     template <class PassedKey, class... Args>
     std::pair<
@@ -237,7 +237,7 @@ uint32_t LeadingZeros(T x) {
 //   for (int i : BitMask<uint64_t, 8, 3>(0x0000000080800000)) -> yields 2, 3
 // --------------------------------------------------------------------------
 template <class T, int SignificantBits, int Shift = 0>
-class BitMask 
+class BitMask
 {
     static_assert(std::is_unsigned<T>::value, "");
     static_assert(Shift == 0 || Shift == 3, "");
@@ -298,7 +298,7 @@ using h2_t = uint8_t;
 // The values here are selected for maximum performance. See the static asserts
 // below for details.
 // --------------------------------------------------------------------------
-enum Ctrl : ctrl_t 
+enum Ctrl : ctrl_t
 {
     kEmpty = -128,   // 0b10000000 or 0x80
     kDeleted = -2,   // 0b11111110 or 0xfe
@@ -377,7 +377,7 @@ inline bool IsEmptyOrDeleted(ctrl_t c) { return c < kSentinel; }
 #if PHMAP_HAVE_SSE2
 
 #ifdef _MSC_VER
-    #pragma warning(push)  
+    #pragma warning(push)
     #pragma warning(disable : 4365) // conversion from 'int' to 'T', signed/unsigned mismatch
 #endif
 
@@ -406,7 +406,7 @@ inline __m128i _mm_cmpgt_epi8_fixed(__m128i a, __m128i b) {
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
-struct GroupSse2Impl 
+struct GroupSse2Impl
 {
     enum { kWidth = 16 };  // the number of slots per group
 
@@ -468,14 +468,14 @@ struct GroupSse2Impl
 };
 
 #ifdef _MSC_VER
-     #pragma warning(pop)  
+     #pragma warning(pop)
 #endif
 
 #endif  // PHMAP_HAVE_SSE2
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
-struct GroupPortableImpl 
+struct GroupPortableImpl
 {
     enum { kWidth = 8 };
 
@@ -528,7 +528,7 @@ struct GroupPortableImpl
     uint64_t ctrl;
 };
 
-#if PHMAP_HAVE_SSE2  
+#if PHMAP_HAVE_SSE2
     using Group = GroupSse2Impl;
 #else
     using Group = GroupPortableImpl;
@@ -555,7 +555,7 @@ inline bool IsValidCapacity(size_t n) { return ((n + 1) & n) == 0 && n > 0; }
 //   FULL -> DELETED
 // --------------------------------------------------------------------------
 inline void ConvertDeletedToEmptyAndFullToDeleted(
-    ctrl_t* PHMAP_RESTRICT ctrl, size_t capacity) 
+    ctrl_t* PHMAP_RESTRICT ctrl, size_t capacity)
 {
     assert(ctrl[capacity] == kSentinel);
     assert(IsValidCapacity(capacity));
@@ -570,7 +570,7 @@ inline void ConvertDeletedToEmptyAndFullToDeleted(
 // --------------------------------------------------------------------------
 // Rounds up the capacity to the next power of 2 minus 1, with a minimum of 1.
 // --------------------------------------------------------------------------
-inline size_t NormalizeCapacity(size_t n) 
+inline size_t NormalizeCapacity(size_t n)
 {
     return n ? ~size_t{} >> LeadingZeros(n) : 1;
 }
@@ -579,7 +579,7 @@ inline size_t NormalizeCapacity(size_t n)
 // We use 7/8th as maximum load factor.
 // For 16-wide groups, that gives an average of two empty slots per group.
 // --------------------------------------------------------------------------
-inline size_t CapacityToGrowth(size_t capacity) 
+inline size_t CapacityToGrowth(size_t capacity)
 {
     assert(IsValidCapacity(capacity));
     // `capacity*7/8`
@@ -596,7 +596,7 @@ inline size_t CapacityToGrowth(size_t capacity)
 // From desired "growth" to a lowerbound of the necessary capacity.
 // Might not be a valid one and required NormalizeCapacity().
 // --------------------------------------------------------------------------
-inline size_t GrowthToLowerboundCapacity(size_t growth) 
+inline size_t GrowthToLowerboundCapacity(size_t growth)
 {
     // `growth*8/7`
     PHMAP_IF_CONSTEXPR (Group::kWidth == 8) {
@@ -656,7 +656,7 @@ struct HashtableDebugAccess
 // ----------------------------------------------------------------------------
 //                    I N F O Z   S T U B S
 // ----------------------------------------------------------------------------
-struct HashtablezInfo 
+struct HashtablezInfo
 {
     void PrepareForSampling() {}
 };
@@ -670,7 +670,7 @@ static inline void RecordEraseSlow(HashtablezInfo*) {}
 static inline HashtablezInfo* SampleSlow(int64_t*) { return nullptr; }
 static inline void UnsampleSlow(HashtablezInfo* ) {}
 
-class HashtablezInfoHandle 
+class HashtablezInfoHandle
 {
 public:
     inline void RecordStorageChanged(size_t , size_t ) {}
@@ -683,7 +683,7 @@ public:
 
 static inline HashtablezInfoHandle Sample() { return HashtablezInfoHandle(); }
 
-class HashtablezSampler 
+class HashtablezSampler
 {
 public:
     // Returns a global Sampler.
@@ -842,7 +842,7 @@ DecomposePairImpl(F&& f, std::pair<std::tuple<K>, V> p) {
 // table will be probed exactly once.
 // ----------------------------------------------------------------------------
 template <class Policy, class Hash, class Eq, class Alloc>
-class raw_hash_set 
+class raw_hash_set
 {
     using PolicyTraits = hash_policy_traits<Policy>;
     using KeyArgImpl =
@@ -1016,7 +1016,7 @@ public:
         };
     };
 
-    class const_iterator 
+    class const_iterator
     {
         friend class raw_hash_set;
 
@@ -1245,14 +1245,15 @@ public:
     ~raw_hash_set() { destroy_slots(); }
 
     iterator begin() {
+        if (empty()) return end();
         auto it = iterator_at(0);
         it.skip_empty_or_deleted();
         return it;
     }
-    iterator end() 
+    iterator end()
     {
 #if 0 // PHMAP_BIDIRECTIONAL
-        return iterator_at(capacity_); 
+        return iterator_at(capacity_);
 #else
         return {ctrl_ + capacity_};
 #endif
@@ -1363,10 +1364,10 @@ public:
     private:
         using yes = std::true_type;
         using no  = std::false_type;
- 
+
         template<typename U> static auto test(int) -> decltype(std::declval<U>() - std::declval<U>() == 1, yes());
         template<typename>   static no   test(...);
- 
+
     public:
         static constexpr bool value = std::is_same<decltype(test<T>(0)), yes>::value;
     };
@@ -1374,13 +1375,13 @@ public:
     template <class InputIt, typename phmap::enable_if_t<has_difference_operator<InputIt>::value, int> = 0>
     void insert(InputIt first, InputIt last) {
         this->reserve(this->size() + (last - first));
-        for (; first != last; ++first) 
+        for (; first != last; ++first)
             emplace(*first);
     }
 
     template <class InputIt, typename phmap::enable_if_t<!has_difference_operator<InputIt>::value, int> = 0>
     void insert(InputIt first, InputIt last) {
-        for (; first != last; ++first) 
+        for (; first != last; ++first)
             emplace(*first);
     }
 
@@ -1504,7 +1505,7 @@ public:
     //
     // WARNING: This API is currently experimental. If there is a way to implement
     // the same thing with the rest of the API, prefer that.
-    class constructor 
+    class constructor
     {
         friend class raw_hash_set;
 
@@ -1600,7 +1601,7 @@ public:
 
 
     iterator erase(const_iterator cit) { return erase(cit.inner_); }
-    
+
     // Erases the element pointed to by `it`.  Unlike `std::unordered_set::erase`,
     // this method returns void to reduce algorithmic complexity to O(1).  In
     // order to erase while iterating across a map, use the following idiom (which
@@ -1831,7 +1832,7 @@ public:
         if (a.size() != b.size()) return false;
         const raw_hash_set* outer = &a;
         const raw_hash_set* inner = &b;
-        if (outer->capacity() > inner->capacity()) 
+        if (outer->capacity() > inner->capacity())
             std::swap(outer, inner);
         for (const value_type& elem : *outer)
             if (!inner->has_element(elem)) return false;
@@ -1879,7 +1880,7 @@ private:
         }
     }
 
-    struct FindElement 
+    struct FindElement
     {
         template <class K, class... Args>
         const_iterator operator()(const K& key, Args&&...) const {
@@ -1888,7 +1889,7 @@ private:
         const raw_hash_set& s;
     };
 
-    struct HashElement 
+    struct HashElement
     {
         template <class K, class... Args>
         size_t operator()(const K& key, Args&&...) const {
@@ -1902,7 +1903,7 @@ private:
     };
 
     template <class K1>
-    struct EqualElement 
+    struct EqualElement
     {
         template <class K2, class... Args>
         bool operator()(const K2& lhs, Args&&...) const {
@@ -1913,7 +1914,7 @@ private:
     };
 
     template <class K, class... Args>
-    std::pair<iterator, bool> emplace_decomposable(const K& key, size_t hashval, 
+    std::pair<iterator, bool> emplace_decomposable(const K& key, size_t hashval,
                                                    Args&&... args)
     {
         size_t offset = _find_key(key, hashval);
@@ -1926,7 +1927,7 @@ private:
         return {iterator_at(offset), false};
     }
 
-    struct EmplaceDecomposable 
+    struct EmplaceDecomposable
     {
         template <class K, class... Args>
         std::pair<iterator, bool> operator()(const K& key, Args&&... args) const {
@@ -1945,7 +1946,7 @@ private:
     };
 
     template <bool do_destroy>
-    struct InsertSlot 
+    struct InsertSlot
     {
         template <class K, class... Args>
         std::pair<iterator, bool> operator()(const K& key, Args&&...) && {
@@ -1965,7 +1966,7 @@ private:
     };
 
     template <bool do_destroy>
-    struct InsertSlotWithHash 
+    struct InsertSlotWithHash
     {
         template <class K, class... Args>
         std::pair<iterator, bool> operator()(const K& key, Args&&...) && {
@@ -2011,7 +2012,7 @@ private:
 
     void initialize_slots(size_t new_capacity) {
         assert(new_capacity);
-        if (std::is_same<SlotAlloc, std::allocator<slot_type>>::value && 
+        if (std::is_same<SlotAlloc, std::allocator<slot_type>>::value &&
             slots_ == nullptr) {
             infoz_ = Sample();
         }
@@ -2029,7 +2030,7 @@ private:
     void destroy_slots() {
         if (!capacity_)
             return;
-        
+
         PHMAP_IF_CONSTEXPR((!std::is_trivially_destructible<typename PolicyTraits::value_type>::value ||
                             std::is_same<typename Policy::is_flat, std::false_type>::value)) {
             // node map, or not trivially destructible... we  need to iterate and destroy values one by one
@@ -2039,7 +2040,7 @@ private:
                     PolicyTraits::destroy(&alloc_ref(), slots_ + i);
                 }
             }
-        } 
+        }
         auto layout = MakeLayout(capacity_);
         // Unpoison before returning the memory to the allocator.
         SanitizerUnpoisonMemoryRegion(slots_, sizeof(slot_type) * capacity_);
@@ -2188,7 +2189,7 @@ private:
     // - the input is already a set
     // - there are enough slots
     // - the element with the hash is not in the table
-    struct FindInfo 
+    struct FindInfo
     {
         size_t offset;
         size_t probe_length;
@@ -2280,7 +2281,7 @@ protected:
     void emplace_at(size_t i, Args&&... args) {
         PolicyTraits::construct(&alloc_ref(), slots_ + i,
                                 std::forward<Args>(args)...);
-        
+
 #ifdef PHMAP_CHECK_CONSTRUCTED_VALUE
         // this check can be costly, so do it only when requested
         assert(PolicyTraits::apply(FindElement{*this}, *iterator_at(i)) ==
@@ -2382,7 +2383,7 @@ private:
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
 template <class Policy, class Hash, class Eq, class Alloc>
-class raw_hash_map : public raw_hash_set<Policy, Hash, Eq, Alloc> 
+class raw_hash_map : public raw_hash_set<Policy, Hash, Eq, Alloc>
 {
     // P is Policy. It's passed as a template argument to support maps that have
     // incomplete types as values, as in unordered_map<K, IncompleteType>.
@@ -2417,7 +2418,7 @@ public:
     using const_iterator = typename raw_hash_map::raw_hash_set::const_iterator;
 
     raw_hash_map() {}
-    using Base::raw_hash_set; // use raw_hash_set constructor  
+    using Base::raw_hash_set; // use raw_hash_set constructor
 
     // The last two template parameters ensure that both arguments are rvalues
     // (lvalue arguments are handled by the overloads below). This is necessary
@@ -2496,7 +2497,7 @@ public:
     template <class K = key_type, class P = Policy>
     MappedReference<P> at(const key_arg<K>& key) {
         auto it = this->find(key);
-        if (it == this->end()) 
+        if (it == this->end())
             phmap::base_internal::ThrowStdOutOfRange("phmap at(): lookup non-existent key");
         return Policy::value(&*it);
     }
@@ -2529,7 +2530,7 @@ private:
             this->emplace_at(offset, std::forward<K>(k), std::forward<V>(v));
             this->set_ctrl(offset, H2(hashval));
             return {this->iterator_at(offset), true};
-        } 
+        }
         Policy::value(&*this->iterator_at(offset)) = std::forward<V>(v);
         return {this->iterator_at(offset), false};
     }
@@ -2553,7 +2554,7 @@ private:
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 // Returns "random" seed.
-inline size_t RandomSeed() 
+inline size_t RandomSeed()
 {
 #if PHMAP_HAVE_THREAD_LOCAL
     static thread_local size_t counter = 0;
@@ -2571,7 +2572,7 @@ template <size_t N,
           template <class, class, class, class> class RefSet,
           class Mtx_,
           class Policy, class Hash, class Eq, class Alloc>
-class parallel_hash_set 
+class parallel_hash_set
 {
     using PolicyTraits = hash_policy_traits<Policy>;
     using KeyArgImpl =
@@ -2684,7 +2685,7 @@ public:
                   "Allocators with custom pointer types are not supported");
 
     // --------------------- i t e r a t o r ------------------------------
-    class iterator 
+    class iterator
     {
         friend class parallel_hash_set;
 
@@ -2711,7 +2712,7 @@ public:
             skip_empty();
             return *this;
         }
-    
+
         iterator operator++(int) {
             assert(inner_);  // null inner means we are already at the end
             auto tmp = *this;
@@ -2728,7 +2729,7 @@ public:
         }
 
     private:
-        iterator(Inner *inner, Inner *inner_end, const EmbeddedIterator& it) : 
+        iterator(Inner *inner, Inner *inner_end, const EmbeddedIterator& it) :
             inner_(inner), inner_end_(inner_end), it_(it)  {  // for begin() and end()
             if (inner)
                 it_end_ = inner->set_.end();
@@ -2754,7 +2755,7 @@ public:
     };
 
     // --------------------- c o n s t   i t e r a t o r -----------------
-    class const_iterator 
+    class const_iterator
     {
         friend class parallel_hash_set;
 
@@ -2788,7 +2789,7 @@ public:
 
     private:
         const_iterator(const Inner *inner, const Inner *inner_end, const EmbeddedIterator& it)
-            : iter_(const_cast<Inner**>(inner), 
+            : iter_(const_cast<Inner**>(inner),
                     const_cast<Inner**>(inner_end),
                     const_cast<EmbeddedIterator*>(it)) {}
 
@@ -2806,11 +2807,11 @@ public:
         std::is_nothrow_default_constructible<allocator_type>::value) {}
 
 #if  (__cplusplus >= 201703L || _MSVC_LANG >= 201402) && (defined(_MSC_VER) || defined(__clang__) || (defined(__GNUC__) && __GNUC__ > 6))
-    explicit parallel_hash_set(size_t bucket_cnt, 
+    explicit parallel_hash_set(size_t bucket_cnt,
                                const hasher& hash_param    = hasher(),
                                const key_equal& eq         = key_equal(),
                                const allocator_type& alloc = allocator_type()) :
-        parallel_hash_set(typename Inner::Params{bucket_cnt, hash_param, eq, alloc}, 
+        parallel_hash_set(typename Inner::Params{bucket_cnt, hash_param, eq, alloc},
                           phmap::make_index_sequence<num_tables>{})
     {}
 
@@ -2819,7 +2820,7 @@ public:
                       phmap::index_sequence<i...>) : sets_{((void)i, p)...}
     {}
 #else
-    explicit parallel_hash_set(size_t bucket_cnt, 
+    explicit parallel_hash_set(size_t bucket_cnt,
                                const hasher& hash_param    = hasher(),
                                const key_equal& eq         = key_equal(),
                                const allocator_type& alloc = allocator_type()) {
@@ -2828,7 +2829,7 @@ public:
     }
 #endif
 
-    parallel_hash_set(size_t bucket_cnt, 
+    parallel_hash_set(size_t bucket_cnt,
                       const hasher& hash_param,
                       const allocator_type& alloc)
         : parallel_hash_set(bucket_cnt, hash_param, key_equal(), alloc) {}
@@ -2915,7 +2916,7 @@ public:
     template <class T, RequiresNotInit<T> = 0, RequiresInsertable<T> = 0>
     parallel_hash_set(std::initializer_list<T> init, const allocator_type& alloc)
         : parallel_hash_set(init, 0, hasher(), key_equal(), alloc) {}
-  
+
     parallel_hash_set(std::initializer_list<init_type> init,
                       const allocator_type& alloc)
         : parallel_hash_set(init, 0, hasher(), key_equal(), alloc) {}
@@ -2929,7 +2930,7 @@ public:
         for (size_t i=0; i<num_tables; ++i)
             sets_[i].set_ = { that.sets_[i].set_, a };
     }
-  
+
     parallel_hash_set(parallel_hash_set&& that) noexcept(
         std::is_nothrow_copy_constructible<hasher>::value&&
         std::is_nothrow_copy_constructible<key_equal>::value&&
@@ -2974,18 +2975,18 @@ public:
 
     bool empty() const { return !size(); }
 
-    size_t size() const { 
+    size_t size() const {
         size_t sz = 0;
         for (const auto& inner : sets_)
             sz += inner.set_.size();
-        return sz; 
+        return sz;
     }
-  
-    size_t capacity() const { 
+
+    size_t capacity() const {
         size_t c = 0;
         for (const auto& inner : sets_)
             c += inner.set_.capacity();
-        return c; 
+        return c;
     }
 
     size_t max_size() const { return (std::numeric_limits<size_t>::max)(); }
@@ -3088,7 +3089,7 @@ public:
     }
 
     insert_return_type insert(node_type&& node) {
-        if (!node) 
+        if (!node)
             return {end(), false, node_type()};
         auto& key      = node.key();
         size_t hashval = this->hash(key);
@@ -3106,7 +3107,7 @@ public:
         return insert(std::move(node)).first;
     }
 
-    struct ReturnKey_ 
+    struct ReturnKey_
     {
         template <class Key, class... Args>
         Key operator()(Key&& k, const Args&...) const {
@@ -3119,7 +3120,7 @@ public:
     // ----------------------------------
     // same as emplace, but hashval is provided
     // --------------------------------------------------------------------
-    struct EmplaceDecomposableHashval 
+    struct EmplaceDecomposableHashval
     {
         template <class K, class... Args>
         std::pair<iterator, bool> operator()(const K& key, Args&&... args) const {
@@ -3159,8 +3160,8 @@ public:
         Inner& inner    = sets_[subidx(hashval)];
         auto&  set      = inner.set_;
         UniqueLock m(inner);
-        typename EmbeddedSet::template InsertSlotWithHash<true> f { inner, std::move(*slot), hashval };
-        return make_rv(PolicyTraits::apply(f, elem));
+        typename EmbeddedSet::template InsertSlotWithHash<true> f { inner.set_, std::move(*slot), hashval };
+        return make_rv(&inner, PolicyTraits::apply(std::move(f), elem));
     }
 
     template <class... Args>
@@ -3178,7 +3179,7 @@ public:
         Inner& inner   = sets_[subidx(hashval)];
         auto&  set     = inner.set_;
         UniqueLock m(inner);
-        
+
         size_t offset = set._find_key(key, hashval);
         if (offset == (size_t)-1) {
             offset = set.prepare_insert(hashval);
@@ -3195,7 +3196,7 @@ public:
         return emplace_decomposable_with_hash(key, this->hash(key), std::forward<Args>(args)...);
     }
 
-    struct EmplaceDecomposable 
+    struct EmplaceDecomposable
     {
         template <class K, class... Args>
         std::pair<iterator, bool> operator()(const K& key, Args&&... args) const {
@@ -3227,15 +3228,15 @@ public:
     std::pair<iterator, bool> emplace(Args&&... args) {
         typename phmap::aligned_storage<sizeof(slot_type), alignof(slot_type)>::type raw;
         slot_type* slot = reinterpret_cast<slot_type*>(&raw);
-        size_t hashval  = this->hash(PolicyTraits::key(slot));
-
         PolicyTraits::construct(&alloc_ref(), slot, std::forward<Args>(args)...);
+
         const auto& elem = PolicyTraits::element(slot);
+        size_t hashval   = this->hash(PolicyTraits::key(slot));
         Inner& inner     = sets_[subidx(hashval)];
         auto&  set       = inner.set_;
         UniqueLock m(inner);
-        typename EmbeddedSet::template InsertSlotWithHash<true> f { inner, std::move(*slot), hashval };
-        return make_rv(PolicyTraits::apply(f, elem));
+        typename EmbeddedSet::template InsertSlotWithHash<true> f { inner.set_, std::move(*slot), hashval };
+        return make_rv(&inner, PolicyTraits::apply(std::move(f), elem));
     }
 
     template <class... Args>
@@ -3250,7 +3251,7 @@ public:
         return iterator(inner, &sets_[0] + num_tables, it);
     }
 
-    std::pair<iterator, bool> make_rv(Inner* inner, 
+    std::pair<iterator, bool> make_rv(Inner* inner,
                                       const std::pair<EmbeddedIterator, bool>& res)
     {
         return {iterator(inner, &sets_[0] + num_tables, res.first), res.second};
@@ -3276,7 +3277,7 @@ public:
     iterator lazy_emplace(const key_arg<K>& key, F&& f) {
         return lazy_emplace_with_hash(key, this->hash(key), std::forward<F>(f));
     }
-    
+
     // emplace_single
     // --------------
     template <class K = key_type, class F>
@@ -3297,7 +3298,7 @@ public:
     // -----------------------------------------------------------------------------------------
     template <class K = key_type, class F>
     bool if_contains(const key_arg<K>& key, F&& f) const {
-        return const_cast<parallel_hash_set*>(this)->template 
+        return const_cast<parallel_hash_set*>(this)->template
             modify_if_impl<K, F, SharedLock>(key, std::forward<F>(f));
     }
 
@@ -3307,7 +3308,7 @@ public:
     // -----------------------------------------------------------------------------------------
     template <class K = key_type, class F>
     bool if_contains_unsafe(const key_arg<K>& key, F&& f) const {
-        return const_cast<parallel_hash_set*>(this)->template 
+        return const_cast<parallel_hash_set*>(this)->template
             modify_if_impl<K, F, LockableBaseImpl<phmap::NullMutex>::DoNothing>(key, std::forward<F>(f));
     }
 
@@ -3369,9 +3370,9 @@ public:
         return 0;
     }
 
-    // if map already  contains key, the first lambda is called with the mapped value (under 
+    // if map already  contains key, the first lambda is called with the mapped value (under
     // write lock protection) and can update the mapped value.
-    // if map does not contains key, the second lambda is called and it should invoke the 
+    // if map does not contains key, the second lambda is called and it should invoke the
     // passed constructor to construct the value
     // returns true if key was not already present, false otherwise.
     // ---------------------------------------------------------------------------------------
@@ -3388,7 +3389,7 @@ public:
         } else {
             // key found. Call fExists lambda. In case of the set, non "key" part of value_type can be changed
             auto it = this->iterator_at(inner, inner->set_.iterator_at(std::get<1>(res)));
-            std::forward<FExists>(fExists)(const_cast<value_type &>(*it)); 
+            std::forward<FExists>(fExists)(const_cast<value_type &>(*it));
         }
         return std::get<2>(res);
     }
@@ -3510,8 +3511,8 @@ public:
         Inner* inner = it.inner_;
         assert(inner != nullptr);
         auto&  set   = inner->set_;
-        // UniqueLock m(*inner); // don't lock here 
-        
+        // UniqueLock m(*inner); // don't lock here
+
         set._erase(it.it_);
     }
     void _erase(const_iterator cit) { _erase(cit.iter_); }
@@ -3572,7 +3573,7 @@ public:
     {
         using std::swap;
         using Lockable2 = phmap::LockableImpl<Mtx2_>;
-         
+
         for (size_t i=0; i<num_tables; ++i)
         {
             typename Lockable::UniqueLock l(sets_[i]);
@@ -3590,11 +3591,11 @@ public:
         }
     }
 
-    void reserve(size_t n) 
+    void reserve(size_t n)
     {
         size_t target = GrowthToLowerboundCapacity(n);
         size_t normalized = num_tables * NormalizeCapacity(n / num_tables);
-        rehash(normalized > target ? normalized : target); 
+        rehash(normalized > target ? normalized : target);
     }
 
     // Extension API: support for heterogeneous keys.
@@ -3691,7 +3692,7 @@ public:
             SharedLock m(const_cast<Inner&>(inner));
             sz += inner.set_.bucket_count();
         }
-        return sz; 
+        return sz;
     }
 
     float load_factor() const {
@@ -3741,7 +3742,7 @@ private:
     template <class Container, typename Enabler>
     friend struct phmap::priv::hashtable_debug_internal::HashtableDebugAccess;
 
-    struct FindElement 
+    struct FindElement
     {
         template <class K, class... Args>
         const_iterator operator()(const K& key, Args&&...) const {
@@ -3750,7 +3751,7 @@ private:
         const parallel_hash_set& s;
     };
 
-    struct HashElement 
+    struct HashElement
     {
         template <class K, class... Args>
         size_t operator()(const K& key, Args&&...) const {
@@ -3764,7 +3765,7 @@ private:
     };
 
     template <class K1>
-    struct EqualElement 
+    struct EqualElement
     {
         template <class K2, class... Args>
         bool operator()(const K2& lhs, Args&&...) const {
@@ -3836,7 +3837,7 @@ protected:
     }
 
     template <class K>
-    std::tuple<Inner*, size_t, bool> 
+    std::tuple<Inner*, size_t, bool>
     find_or_prepare_insert_with_hash(size_t hashval, const K& key, UniqueLock &mutexlock) {
         Inner& inner = sets_[subidx(hashval)];
         auto&  set   = inner.set_;
@@ -3850,18 +3851,18 @@ protected:
     }
 
     template <class K>
-    std::tuple<Inner*, size_t, bool> 
+    std::tuple<Inner*, size_t, bool>
     find_or_prepare_insert(const K& key, UniqueLock &mutexlock) {
         return find_or_prepare_insert_with_hash<K>(this->hash(key), key, mutexlock);
     }
 
-    iterator iterator_at(Inner *inner, 
-                         const EmbeddedIterator& it) { 
-        return {inner, &sets_[0] + num_tables, it}; 
+    iterator iterator_at(Inner *inner,
+                         const EmbeddedIterator& it) {
+        return {inner, &sets_[0] + num_tables, it};
     }
-    const_iterator iterator_at(Inner *inner, 
-                               const EmbeddedIterator& it) const { 
-        return {inner, &sets_[0] + num_tables, it}; 
+    const_iterator iterator_at(Inner *inner,
+                               const EmbeddedIterator& it) const {
+        return {inner, &sets_[0] + num_tables, it};
     }
 
     static size_t subidx(size_t hashval) {
@@ -3875,11 +3876,11 @@ protected:
 private:
     friend struct RawHashSetTestOnlyAccess;
 
-    size_t growth_left() { 
+    size_t growth_left() {
         size_t sz = 0;
         for (const auto& set : sets_)
             sz += set.growth_left();
-        return sz; 
+        return sz;
     }
 
     hasher&       hash_ref()        { return sets_[0].set_.hash_ref(); }
@@ -3887,7 +3888,7 @@ private:
     key_equal&       eq_ref()       { return sets_[0].set_.eq_ref(); }
     const key_equal& eq_ref() const { return sets_[0].set_.eq_ref(); }
     allocator_type&  alloc_ref()    { return sets_[0].set_.alloc_ref(); }
-    const allocator_type& alloc_ref() const { 
+    const allocator_type& alloc_ref() const {
         return sets_[0].set_.alloc_ref();
     }
 
@@ -3901,7 +3902,7 @@ template <size_t N,
           template <class, class, class, class> class RefSet,
           class Mtx_,
           class Policy, class Hash, class Eq, class Alloc>
-class parallel_hash_map : public parallel_hash_set<N, RefSet, Mtx_, Policy, Hash, Eq, Alloc> 
+class parallel_hash_map : public parallel_hash_set<N, RefSet, Mtx_, Policy, Hash, Eq, Alloc>
 {
     // P is Policy. It's passed as a template argument to support maps that have
     // incomplete types as values, as in unordered_map<K, IncompleteType>.
@@ -4024,7 +4025,7 @@ public:
     template <class K = key_type, class P = Policy>
     MappedReference<P> at(const key_arg<K>& key) {
         auto it = this->find(key);
-        if (it == this->end()) 
+        if (it == this->end())
             phmap::base_internal::ThrowStdOutOfRange("phmap at(): lookup non-existent key");
         return Policy::value(&*it);
     }
@@ -4032,7 +4033,7 @@ public:
     template <class K = key_type, class P = Policy>
     MappedConstReference<P> at(const key_arg<K>& key) const {
         auto it = this->find(key);
-        if (it == this->end()) 
+        if (it == this->end())
             phmap::base_internal::ThrowStdOutOfRange("phmap at(): lookup non-existent key");
         return Policy::value(&*it);
     }
@@ -4064,9 +4065,9 @@ public:
         return try_emplace_with_hash(hashval, k, std::forward<Args>(args)...).first;
     }
 
-    // if map does not contains key, it is inserted and the mapped value is value-constructed 
-    // with the provided arguments (if any), as with try_emplace. 
-    // if map already  contains key, then the lambda is called with the mapped value (under 
+    // if map does not contains key, it is inserted and the mapped value is value-constructed
+    // with the provided arguments (if any), as with try_emplace.
+    // if map already  contains key, then the lambda is called with the mapped value (under
     // write lock protection) and can update the mapped value.
     // returns true if key was not already present, false otherwise.
     // ---------------------------------------------------------------------------------------
@@ -4132,7 +4133,7 @@ private:
             inner->set_.set_ctrl(std::get<1>(res), H2(hashval));
         } else
             Policy::value(&*inner->set_.iterator_at(std::get<1>(res))) = std::forward<V>(v);
-        return {this->iterator_at(inner, inner->set_.iterator_at(std::get<1>(res))), 
+        return {this->iterator_at(inner, inner->set_.iterator_at(std::get<1>(res))),
                 std::get<2>(res)};
     }
 
@@ -4153,11 +4154,11 @@ private:
                                    std::forward_as_tuple(std::forward<Args>(args)...));
             inner->set_.set_ctrl(std::get<1>(res), H2(hashval));
         }
-        return {this->iterator_at(inner, inner->set_.iterator_at(std::get<1>(res))), 
+        return {this->iterator_at(inner, inner->set_.iterator_at(std::get<1>(res))),
                 std::get<2>(res)};
     }
 
-    
+
 };
 
 
@@ -4265,7 +4266,7 @@ DecomposeValue(F&& f, Arg&& arg) {
 // constructed and destroyed.
 // --------------------------------------------------------------------------
 template <class T>
-struct FlatHashSetPolicy 
+struct FlatHashSetPolicy
 {
     using slot_type = T;
     using key_type = T;
@@ -4307,7 +4308,7 @@ struct FlatHashSetPolicy
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
 template <class K, class V>
-struct FlatHashMapPolicy 
+struct FlatHashMapPolicy
 {
     using slot_policy = priv::map_slot_policy<K, V>;
     using slot_type = typename slot_policy::slot_type;
@@ -4392,7 +4393,7 @@ struct node_hash_policy {
 // --------------------------------------------------------------------------
 template <class T>
 struct NodeHashSetPolicy
-    : phmap::priv::node_hash_policy<T&, NodeHashSetPolicy<T>> 
+    : phmap::priv::node_hash_policy<T&, NodeHashSetPolicy<T>>
 {
     using key_type = T;
     using init_type = T;
@@ -4435,7 +4436,7 @@ struct NodeHashSetPolicy
 template <class Key, class Value>
 class NodeHashMapPolicy
     : public phmap::priv::node_hash_policy<
-          std::pair<const Key, Value>&, NodeHashMapPolicy<Key, Value>> 
+          std::pair<const Key, Value>&, NodeHashMapPolicy<Key, Value>>
 {
     using value_type = std::pair<const Key, Value>;
 
@@ -4490,13 +4491,13 @@ public:
 #if PHMAP_HAVE_STD_STRING_VIEW
 
 // Supports heterogeneous lookup for basic_string<T>-like elements.
-template<class CharT> 
+template<class CharT>
 struct StringHashEqT
 {
-    struct Hash 
+    struct Hash
     {
         using is_transparent = void;
-        
+
         size_t operator()(std::basic_string_view<CharT> v) const {
             std::string_view bv{
                 reinterpret_cast<const char*>(v.data()), v.size() * sizeof(CharT)};
@@ -4539,7 +4540,7 @@ struct HashEq<std::wstring_view> : StringHashEqT<wchar_t> {};
 // Supports heterogeneous lookup for pointers and smart pointers.
 // -------------------------------------------------------------
 template <class T>
-struct HashEq<T*> 
+struct HashEq<T*>
 {
     struct Hash {
         using is_transparent = void;
@@ -4602,7 +4603,7 @@ struct HashtableDebugAccess<Set, typename std::enable_if<has_member_type_raw_has
         if (!set.ctrl_)
             return 0;
         size_t num_probes = 0;
-        size_t hashval = set.hash(key); 
+        size_t hashval = set.hash(key);
         auto seq = set.probe(hashval);
         while (true) {
             priv::Group g{set.ctrl_ + seq.offset()};
@@ -4697,7 +4698,7 @@ struct HashtableDebugAccess<Set, typename std::enable_if<has_member_type_Embedde
 template <class T, class Hash, class Eq, class Alloc> // default values in phmap_fwd_decl.h
 class flat_hash_set
     : public phmap::priv::raw_hash_set<
-          phmap::priv::FlatHashSetPolicy<T>, Hash, Eq, Alloc> 
+          phmap::priv::FlatHashSetPolicy<T>, Hash, Eq, Alloc>
 {
     using Base = typename flat_hash_set::raw_hash_set;
 
@@ -4720,7 +4721,7 @@ public:
     using Base::erase;
     using Base::insert;
     using Base::emplace;
-    using Base::emplace_hint; 
+    using Base::emplace_hint;
     using Base::extract;
     using Base::merge;
     using Base::swap;
@@ -4823,7 +4824,7 @@ public:
 template <class T, class Hash, class Eq, class Alloc> // default values in phmap_fwd_decl.h
 class node_hash_set
     : public phmap::priv::raw_hash_set<
-          phmap::priv::NodeHashSetPolicy<T>, Hash, Eq, Alloc> 
+          phmap::priv::NodeHashSetPolicy<T>, Hash, Eq, Alloc>
 {
     using Base = typename node_hash_set::raw_hash_set;
 
@@ -4889,7 +4890,7 @@ template <class Key, class Value, class Hash, class Eq, class Alloc>  // default
 class node_hash_map
     : public phmap::priv::raw_hash_map<
           phmap::priv::NodeHashMapPolicy<Key, Value>, Hash, Eq,
-          Alloc> 
+          Alloc>
 {
     using Base = typename node_hash_map::raw_hash_map;
 
@@ -4944,8 +4945,8 @@ template <class T, class Hash, class Eq, class Alloc, size_t N, class Mtx_> // d
 class parallel_flat_hash_set
     : public phmap::priv::parallel_hash_set<
          N, phmap::priv::raw_hash_set, Mtx_,
-         phmap::priv::FlatHashSetPolicy<T>, 
-         Hash, Eq, Alloc> 
+         phmap::priv::FlatHashSetPolicy<T>,
+         Hash, Eq, Alloc>
 {
     using Base = typename parallel_flat_hash_set::parallel_hash_set;
 
@@ -4998,7 +4999,7 @@ template <class K, class V, class Hash, class Eq, class Alloc, size_t N, class M
 class parallel_flat_hash_map : public phmap::priv::parallel_hash_map<
                 N, phmap::priv::raw_hash_set, Mtx_,
                 phmap::priv::FlatHashMapPolicy<K, V>,
-                Hash, Eq, Alloc> 
+                Hash, Eq, Alloc>
 {
     using Base = typename parallel_flat_hash_map::parallel_hash_map;
 
@@ -5056,7 +5057,7 @@ template <class T, class Hash, class Eq, class Alloc, size_t N, class Mtx_>
 class parallel_node_hash_set
     : public phmap::priv::parallel_hash_set<
              N, phmap::priv::raw_hash_set, Mtx_,
-             phmap::priv::NodeHashSetPolicy<T>, Hash, Eq, Alloc> 
+             phmap::priv::NodeHashSetPolicy<T>, Hash, Eq, Alloc>
 {
     using Base = typename parallel_node_hash_set::parallel_hash_set;
 
@@ -5112,7 +5113,7 @@ class parallel_node_hash_map
     : public phmap::priv::parallel_hash_map<
           N, phmap::priv::raw_hash_set, Mtx_,
           phmap::priv::NodeHashMapPolicy<Key, Value>, Hash, Eq,
-          Alloc> 
+          Alloc>
 {
     using Base = typename parallel_node_hash_map::parallel_hash_map;
 
@@ -5170,7 +5171,7 @@ public:
 
 namespace phmap {
     namespace priv {
-        template <class C, class Pred> 
+        template <class C, class Pred>
         std::size_t erase_if(C &c, Pred pred) {
             auto old_size = c.size();
             for (auto i = c.begin(), last = c.end(); i != last; ) {
@@ -5185,43 +5186,43 @@ namespace phmap {
     } // priv
 
     // ======== erase_if for phmap set containers ==================================
-    template <class T, class Hash, class Eq, class Alloc, class Pred> 
+    template <class T, class Hash, class Eq, class Alloc, class Pred>
     std::size_t erase_if(phmap::flat_hash_set<T, Hash, Eq, Alloc>& c, Pred pred) {
         return phmap::priv::erase_if(c, std::move(pred));
     }
 
-    template <class T, class Hash, class Eq, class Alloc, class Pred> 
+    template <class T, class Hash, class Eq, class Alloc, class Pred>
     std::size_t erase_if(phmap::node_hash_set<T, Hash, Eq, Alloc>& c, Pred pred) {
         return phmap::priv::erase_if(c, std::move(pred));
     }
 
-    template <class T, class Hash, class Eq, class Alloc, size_t N, class Mtx_, class Pred> 
+    template <class T, class Hash, class Eq, class Alloc, size_t N, class Mtx_, class Pred>
     std::size_t erase_if(phmap::parallel_flat_hash_set<T, Hash, Eq, Alloc, N, Mtx_>& c, Pred pred) {
         return phmap::priv::erase_if(c, std::move(pred));
     }
 
-    template <class T, class Hash, class Eq, class Alloc, size_t N, class Mtx_, class Pred> 
+    template <class T, class Hash, class Eq, class Alloc, size_t N, class Mtx_, class Pred>
     std::size_t erase_if(phmap::parallel_node_hash_set<T, Hash, Eq, Alloc, N, Mtx_>& c, Pred pred) {
         return phmap::priv::erase_if(c, std::move(pred));
     }
 
     // ======== erase_if for phmap map containers ==================================
-    template <class K, class V, class Hash, class Eq, class Alloc, class Pred> 
+    template <class K, class V, class Hash, class Eq, class Alloc, class Pred>
     std::size_t erase_if(phmap::flat_hash_map<K, V, Hash, Eq, Alloc>& c, Pred pred) {
         return phmap::priv::erase_if(c, std::move(pred));
     }
 
-    template <class K, class V, class Hash, class Eq, class Alloc, class Pred> 
+    template <class K, class V, class Hash, class Eq, class Alloc, class Pred>
     std::size_t erase_if(phmap::node_hash_map<K, V, Hash, Eq, Alloc>& c, Pred pred) {
         return phmap::priv::erase_if(c, std::move(pred));
     }
 
-    template <class K, class V, class Hash, class Eq, class Alloc, size_t N, class Mtx_, class Pred> 
+    template <class K, class V, class Hash, class Eq, class Alloc, size_t N, class Mtx_, class Pred>
     std::size_t erase_if(phmap::parallel_flat_hash_map<K, V, Hash, Eq, Alloc, N, Mtx_>& c, Pred pred) {
         return phmap::priv::erase_if(c, std::move(pred));
     }
 
-    template <class K, class V, class Hash, class Eq, class Alloc, size_t N, class Mtx_, class Pred> 
+    template <class K, class V, class Hash, class Eq, class Alloc, size_t N, class Mtx_, class Pred>
     std::size_t erase_if(phmap::parallel_node_hash_map<K, V, Hash, Eq, Alloc, N, Mtx_>& c, Pred pred) {
         return phmap::priv::erase_if(c, std::move(pred));
     }
@@ -5229,7 +5230,7 @@ namespace phmap {
 } // phmap
 
 #ifdef _MSC_VER
-     #pragma warning(pop)  
+     #pragma warning(pop)
 #endif
 
 

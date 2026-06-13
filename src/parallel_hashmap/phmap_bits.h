@@ -242,7 +242,7 @@ namespace phmap {
 
 #if defined(__GNUC__)
     #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wpedantic"
+    //#pragma GCC diagnostic ignored "-Wpedantic"
 #endif
 
 #ifdef PHMAP_HAVE_INTRINSIC_INT128
